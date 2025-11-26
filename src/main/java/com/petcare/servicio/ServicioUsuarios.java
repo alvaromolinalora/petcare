@@ -2,19 +2,25 @@ package com.petcare.servicio;
 
 import com.petcare.modelo.Usuario;
 import com.petcare.repositorio.UsuarioRepositorio;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServicioUsuarios {
+public class ServicioUsuarios implements UserDetailsService {
 
     private final UsuarioRepositorio usuarioRepositorio;
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder encoder;
 
-    public ServicioUsuarios(UsuarioRepositorio usuarioRepositorio) {
+    public ServicioUsuarios(UsuarioRepositorio usuarioRepositorio, PasswordEncoder encoder) {
         this.usuarioRepositorio = usuarioRepositorio;
+        this.encoder = encoder;
     }
 
+    // Registro normal (para /registro)
     public boolean registrar(String nombreUsuario, String contrasenaPlano, String nombreCompleto) {
 
         if (usuarioRepositorio.findByNombreUsuario(nombreUsuario) != null) {
@@ -29,6 +35,7 @@ public class ServicioUsuarios {
         return true;
     }
 
+    // Método que usabas en el login manual (puede seguir existiendo)
     public Usuario validarLogin(String nombreUsuario, String contrasenaPlano) {
         Usuario u = usuarioRepositorio.findByNombreUsuario(nombreUsuario);
         if (u == null) return null;
@@ -39,4 +46,18 @@ public class ServicioUsuarios {
         return usuarioRepositorio.findById(id).orElse(null);
     }
 
+    // *** MÉTODO QUE USA SPRING SECURITY ***
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario u = usuarioRepositorio.findByNombreUsuario(username);
+        if (u == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado: " + username);
+        }
+
+        // Sin roles complicados, solo ROLE_USER
+        return User.withUsername(u.getNombreUsuario())
+                .password(u.getContrasenaHash())
+                .roles("USER")
+                .build();
+    }
 }

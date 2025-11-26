@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
 
 INSERT INTO usuarios (nombre_usuario, contrasena_hash, nombre_completo)
 VALUES (
-    'demo',
+    'profesor',
     '$2b$12$iErvFqT6xUvTcW8kaPkGseZ7RwUb/OfgQ3Y9ytohkWFyCm..LY9gO',
-    'Usuario Demo'
+    'Usuario Profesor'
 );
