@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class ServicioUsuarios implements UserDetailsService {
 
     private final UsuarioRepositorio usuarioRepositorio;
-    // Usamos un encoder interno para registrar y validar
+    // Encoder interno (evita el ciclo con SecurityConfig)
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public ServicioUsuarios(UsuarioRepositorio usuarioRepositorio) {
@@ -35,7 +35,7 @@ public class ServicioUsuarios implements UserDetailsService {
         return true;
     }
 
-    // LOGIN manual (por si lo sigues usando en algún sitio)
+    // LOGIN manual (si lo sigues usando en alguna parte)
     public Usuario validarLogin(String nombreUsuario, String contrasenaPlano) {
         Usuario u = usuarioRepositorio.findByNombreUsuario(nombreUsuario);
         if (u == null) return null;
@@ -44,6 +44,11 @@ public class ServicioUsuarios implements UserDetailsService {
 
     public Usuario buscarPorId(Long id) {
         return usuarioRepositorio.findById(id).orElse(null);
+    }
+
+    // *** NUEVO: para que SecurityConfig pueda recuperar el Usuario ***
+    public Usuario buscarPorNombreUsuario(String nombreUsuario) {
+        return usuarioRepositorio.findByNombreUsuario(nombreUsuario);
     }
 
     // ***** MÉTODO QUE USA SPRING SECURITY *****

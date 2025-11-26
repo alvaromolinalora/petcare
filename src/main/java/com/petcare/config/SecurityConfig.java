@@ -1,5 +1,6 @@
 package com.petcare.config;
 
+import com.petcare.modelo.Usuario;
 import com.petcare.servicio.ServicioUsuarios;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,10 +58,18 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        // IMPORTANTE: coinciden con los name del formulario login.html
                         .usernameParameter("usuario")
                         .passwordParameter("contrasena")
-                        .defaultSuccessUrl("/inicio", true)
+                        // AQUÍ rellenamos la sesión como antes
+                        .successHandler((request, response, authentication) -> {
+                            String username = authentication.getName();
+                            Usuario u = servicioUsuarios.buscarPorNombreUsuario(username);
+                            if (u != null) {
+                                request.getSession().setAttribute("usuarioId", u.getId());
+                                request.getSession().setAttribute("usuarioNombre", u.getNombreUsuario());
+                            }
+                            response.sendRedirect("/inicio");
+                        })
                         .failureUrl("/login?error")
                         .permitAll()
                 )
