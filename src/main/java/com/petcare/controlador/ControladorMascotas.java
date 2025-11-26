@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -40,6 +39,12 @@ public class ControladorMascotas {
 
         Usuario usuario = servicioUsuarios.buscarPorId(usuarioId);
         List<Mascota> lista = servicioMascotas.listarPorUsuario(usuario);
+
+        // *** CLAVE: nunca mandar null a la vista ***
+        if (lista == null) {
+            lista = new ArrayList<>();
+        }
+
         modelo.addAttribute("mascotas", lista);
         return "mascotas";
     }
