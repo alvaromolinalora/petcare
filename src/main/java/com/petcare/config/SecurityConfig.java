@@ -20,11 +20,15 @@ public class SecurityConfig {
                                 "/",
                                 "/login",
                                 "/registro",
+                                // Estilos e imágenes
+                                "/estilos.css",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
                                 "/img/**",
-                                "/static/**"
+                                "/static/**",
+                                "/webjars/**",
+                                "/favicon.ico"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
