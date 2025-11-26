@@ -6,21 +6,21 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServicioUsuarios implements UserDetailsService {
 
     private final UsuarioRepositorio usuarioRepositorio;
-    private final PasswordEncoder encoder;
+    // Usamos un encoder interno para registrar y validar
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public ServicioUsuarios(UsuarioRepositorio usuarioRepositorio, PasswordEncoder encoder) {
+    public ServicioUsuarios(UsuarioRepositorio usuarioRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
-        this.encoder = encoder;
     }
 
-    // Registro normal (para /registro)
+    // REGISTRO (para /registro)
     public boolean registrar(String nombreUsuario, String contrasenaPlano, String nombreCompleto) {
 
         if (usuarioRepositorio.findByNombreUsuario(nombreUsuario) != null) {
@@ -35,7 +35,7 @@ public class ServicioUsuarios implements UserDetailsService {
         return true;
     }
 
-    // Método que usabas en el login manual (puede seguir existiendo)
+    // LOGIN manual (por si lo sigues usando en algún sitio)
     public Usuario validarLogin(String nombreUsuario, String contrasenaPlano) {
         Usuario u = usuarioRepositorio.findByNombreUsuario(nombreUsuario);
         if (u == null) return null;
@@ -46,7 +46,7 @@ public class ServicioUsuarios implements UserDetailsService {
         return usuarioRepositorio.findById(id).orElse(null);
     }
 
-    // *** MÉTODO QUE USA SPRING SECURITY ***
+    // ***** MÉTODO QUE USA SPRING SECURITY *****
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario u = usuarioRepositorio.findByNombreUsuario(username);
@@ -54,7 +54,6 @@ public class ServicioUsuarios implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario no encontrado: " + username);
         }
 
-        // Sin roles complicados, solo ROLE_USER
         return User.withUsername(u.getNombreUsuario())
                 .password(u.getContrasenaHash())
                 .roles("USER")
