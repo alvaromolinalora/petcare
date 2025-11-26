@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Servicios - PetCare</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+    <a class="logo" href="/inicio">PetCare</a>
+    <div class="menu">
+        <a href="/inicio">Inicio</a>
+        <a href="/mascotas">Mi mascota</a>
+        <a href="/agenda">Agenda</a>
+        <a href="/servicios" class="menu-activo">Servicios</a>
+        <a href="/comunidad">Comunidad</a>
+    </div>
+    <div class="user">
+        <span th:if="${session.usuarioNombre}">👤 <b th:text="${session.usuarioNombre}">usuario</b></span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;<a href="/salir">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="card card-servicios-page">
+
+        <div class="cabecera-servicios">
+            <div>
+                <h2 class="titulo">Servicios para el cuidado de tu mascota</h2>
+                <p class="texto-intro-servicios">
+                    En <strong>PetCare</strong> ponemos a tu disposición un conjunto de servicios
+                    pensados para cubrir las necesidades diarias de tu compañero: higiene, salud,
+                    bienestar emocional y organización de su rutina.
+                </p>
+            </div>
+            <div class="badge-servicios">
+                Atención personalizada
+            </div>
+        </div>
+
+        <div class="grid-servicios">
+
+            <div class="card-servicio">
+                <h3>
+                    <span class="icono-servicio">🛁</span>
+                    Baño y peluquería
+                </h3>
+                <p class="card-servicio-subtitle">Higiene e imagen</p>
+
+                <p class="card-servicio-text">
+                    Servicio integral de higiene adaptado al tipo de piel y pelaje de cada mascota,
+                    con productos profesionales y manipulación cuidadosa.
+                </p>
+                <ul>
+                    <li>Baño completo con cosmética específica</li>
+                    <li>Corte de pelo por raza o estilo acordado</li>
+                    <li>Corte de uñas y limpieza de oídos</li>
+                    <li>Sesiones de cepillado y desenredado</li>
+                </ul>
+            </div>
+
+            <div class="card-servicio">
+                <h3>
+                    <span class="icono-servicio">🎓</span>
+                    Adiestramiento
+                </h3>
+                <p class="card-servicio-subtitle">Educación en positivo</p>
+
+                <p class="card-servicio-text">
+                    Programas de educación canina basados en refuerzo positivo, orientados a
+                    mejorar la convivencia y la comunicación con tu mascota.
+                </p>
+                <ul>
+                    <li>Obediencia básica: sentado, quieto, ven, junto</li>
+                    <li>Trabajo de autocontrol y gestión de impulsos</li>
+                    <li>Corrección de conductas no deseadas</li>
+                    <li>Sesiones individuales o en grupos reducidos</li>
+                </ul>
+            </div>
+
+            <div class="card-servicio">
+                <h3>
+                    <span class="icono-servicio">🐾</span>
+                    Paseos
+                </h3>
+                <p class="card-servicio-subtitle">Ejercicio y rutina</p>
+
+                <p class="card-servicio-text">
+                    Paseos estructurados para perros con diferentes niveles de energía,
+                    garantizando ejercicio físico y estimulación mental diaria.
+                </p>
+                <ul>
+                    <li>Recorridos en tu zona de residencia</li>
+                    <li>Duración adaptada a las necesidades del animal</li>
+                    <li>Paseos individuales o en grupos pequeños</li>
+                    <li>Informe resumido tras el paseo, si se solicita</li>
+                </ul>
+            </div>
+
+            <div class="card-servicio">
+                <h3>
+                    <span class="icono-servicio">🏡</span>
+                    Guardería diurna
+                </h3>
+                <p class="card-servicio-subtitle">Acompañamiento diario</p>
+
+                <p class="card-servicio-text">
+                    Para días laborables largos: compañía, supervisión y actividad equilibrada.
+                </p>
+                <ul>
+                    <li>Estancia de mañana, tarde o día completo</li>
+                    <li>Espacios adaptados por tamaño y temperamento</li>
+                    <li>Actividad guiada y tiempo de juego libre</li>
+                    <li>Supervisión continua por personal especializado</li>
+                </ul>
+            </div>
+
+            <div class="card-servicio">
+                <h3>
+                    <span class="icono-servicio">🛏️</span>
+                    Alojamiento / Hotel
+                </h3>
+                <p class="card-servicio-subtitle">Estancias cortas y largas</p>
+
+                <p class="card-servicio-text">
+                    Estancias seguras y controladas para periodos de vacaciones o viajes.
+                </p>
+                <ul>
+                    <li>Habitaciones individuales o compartidas</li>
+                    <li>Paseos diarios incluidos</li>
+                    <li>Supervisión 24/7</li>
+                    <li>Administración de medicación si es necesario</li>
+                </ul>
+            </div>
+
+            <div class="card-servicio">
+                <h3>
+                    <span class="icono-servicio">💡</span>
+                    Consultas de bienestar
+                </h3>
+                <p class="card-servicio-subtitle">Cuidado integral</p>
+
+                <p class="card-servicio-text">
+                    Asesoramiento para optimizar alimentación, ejercicio y bienestar general.
+                </p>
+                <ul>
+                    <li>Revisión de rutina y entorno en el hogar</li>
+                    <li>Recomendaciones nutricionales básicas</li>
+                    <li>Propuestas de ejercicio y enriquecimiento</li>
+                    <li>Orientación según edad, especie y estilo de vida</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="nota-servicios">
+            <p>
+                <strong>Nota:</strong> La información de esta página es de carácter general.
+                Los servicios disponibles, horarios y tarifas pueden variar según centro.
+                Para detalles concretos, ponte en contacto con tu punto PetCare habitual.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

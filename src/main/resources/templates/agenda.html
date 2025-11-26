@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda - PetCare</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+    <a class="logo" href="/inicio">PetCare</a>
+
+    <div class="menu">
+        <a href="/inicio">Inicio</a>
+        <a href="/mascotas">Mi mascota</a>
+        <a href="/agenda" class="menu-activo">Agenda</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/comunidad">Comunidad</a>
+    </div>
+
+    <div class="user">
+        <span th:if="${session.usuarioNombre}">
+            👤 <b th:text="${session.usuarioNombre}">usuario</b>
+        </span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="/salir">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="card">
+
+        <div class="cabecera-servicios">
+            <div>
+                <h2 class="titulo">Agenda de próximas citas</h2>
+                <p class="texto-intro-servicios">
+                    Consulta de un vistazo las citas futuras de tus mascotas y mantén al día
+                    sus revisiones, vacunas y tratamientos.
+                </p>
+            </div>
+            <div class="badge-servicios">
+                Próximos recordatorios
+            </div>
+        </div>
+
+        <p th:if="${#maps.isEmpty(agendaPorMascota)}">
+            No tienes citas próximas programadas.
+        </p>
+
+        <div th:if="${!#maps.isEmpty(agendaPorMascota)}"
+             th:each="entry : ${agendaPorMascota}">
+            <section class="bloque-agenda-mascota">
+
+                <div class="bloque-agenda-header">
+                    <h3 class="titulo-mascota-agenda" th:text="${entry.key}">Nombre mascota</h3>
+                    <span class="texto-seccion-agenda">Próximas citas</span>
+                </div>
+
+                <div class="grid-citas">
+                    <article class="card-cita" th:each="cita : ${entry.value}">
+                        <h4 class="tipo-cita" th:text="${cita.tipo}">Vacuna</h4>
+                        <p class="fecha-cita" th:text="${cita.fecha}">2025-11-29</p>
+                        <p class="descripcion-cita" th:text="${cita.descripcion}">
+                            Descripción de la cita.
+                        </p>
+                        <p class="vet-cita">
+                            <span th:text="${cita.veterinario}">Centro veterinario</span>
+                        </p>
+                    </article>
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${registro.id == null} ? 'Nuevo registro médico - PetCare' : 'Editar registro médico - PetCare'"></title>
+  <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+  <a class="logo" href="/inicio">PetCare</a>
+  <div class="menu">
+    <a href="/inicio">Inicio</a>
+    <a href="/mascotas">Mi mascota</a>
+    <a href="/agenda">Agenda</a>
+    <a href="#">Servicios</a>
+    <a href="#">Comunidad</a>
+  </div>
+  <div class="user">
+    <span th:if="${session.usuarioNombre}">👤 <b th:text="${session.usuarioNombre}">usuario</b></span>
+    &nbsp;&nbsp;|&nbsp;&nbsp;<a href="/salir">Salir</a>
+  </div>
+</div>
+
+<div class="contenedor">
+  <div class="card">
+
+    <h2 class="titulo"
+        th:text="${registro.id == null} ? 'Nuevo registro médico' : 'Editar registro médico'">
+    </h2>
+
+    <form th:action="@{/historial/guardar}" th:object="${registro}" method="post">
+
+      <input type="hidden" th:field="*{id}"/>
+
+      <input type="hidden" th:field="*{mascota.id}"/>
+
+      <div class="grupo">
+        <label>Tipo de registro</label>
+        <select th:field="*{tipo}" required>
+          <option value="">Selecciona un tipo</option>
+          <option value="Vacuna">Vacuna</option>
+          <option value="Cita veterinaria">Cita veterinaria</option>
+          <option value="Enfermedad">Enfermedad</option>
+          <option value="Operación">Operación</option>
+          <option value="Medicación">Medicación</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+
+      <div class="grupo">
+        <label>Fecha</label>
+        <input type="date" th:field="*{fecha}" required>
+      </div>
+
+      <div class="grupo">
+        <label>Veterinario / Clínica</label>
+        <input type="text" th:field="*{veterinario}">
+      </div>
+
+      <div class="grupo">
+        <label>Descripción</label>
+        <textarea rows="3" th:field="*{descripcion}" required></textarea>
+      </div>
+
+      <div class="grupo">
+        <label>Medicación (si aplica)</label>
+        <input type="text" th:field="*{medicacion}">
+      </div>
+
+      <button class="btn prim" type="submit">Guardar</button>
+      <a class="btn link"
+         th:href="@{'/historial/' + ${registro.mascota.id}}">Cancelar</a>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

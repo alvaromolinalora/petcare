@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Mascotas - PetCare</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+    <a class="logo" href="/inicio">PetCare</a>
+    <div class="menu">
+        <a href="/inicio">Inicio</a>
+        <a href="/mascotas" class="menu-activo">Mi mascota</a>
+        <a href="/agenda">Agenda</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/comunidad">Comunidad</a>
+    </div>
+    <div class="user">
+        <span th:if="${session.usuarioNombre}">👤 <b th:text="${session.usuarioNombre}">usuario</b></span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;<a href="/salir">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="card">
+
+        <div class="encabezado-mascotas">
+            <h2 class="titulo">Mis Mascotas</h2>
+
+            <div class="acciones-superior">
+                <a class="btn prim" href="/mascotas/nueva">➕ Añadir mascota</a>
+
+                <div class="acciones-derecha">
+                    <a class="btn"
+                       th:if="${param.sel == null}"
+                       th:href="@{/mascotas(sel='editar')}">✏️ Editar</a>
+
+                    <button class="btn"
+                            id="btnConfirmarEditar"
+                            type="button"
+                            th:if="${param.sel != null and param.sel[0] == 'editar'}">✏️ Editar</button>
+
+                    <a class="btn"
+                       th:if="${param.sel == null}"
+                       th:href="@{/mascotas(sel='eliminar')}">🗑️ Eliminar</a>
+
+                    <button class="btn"
+                            id="btnConfirmarEliminar"
+                            type="button"
+                            th:if="${param.sel != null and param.sel[0] == 'eliminar'}">🗑️ Eliminar</button>
+
+                    <a class="btn" th:if="${param.sel != null}" th:href="@{/mascotas}">Cancelar</a>
+                </div>
+            </div>
+        </div>
+
+        <table class="tabla tabla-mascotas"
+               th:classappend="${param.sel != null} ? ' seleccion-activa' : ''">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Especie</th>
+                <th>Raza</th>
+                <th>Fecha de nacimiento</th>
+                <th>Peso (kg)</th>
+                <th>Notas</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="m : ${mascotas}">
+                <td class="col-nombre nombre-con-selector">
+
+                    <div class="selector-celda" th:if="${param.sel != null}">
+                        <input class="radio-select"
+                               type="radio"
+                               name="idSel"
+                               th:value="${m.id}">
+                    </div>
+
+                    <div class="mascota-identidad">
+                        <!-- FOTO si existe -->
+                        <img th:if="${m.foto != null}"
+                             th:src="${m.foto}"
+                             class="avatar-mascota"
+                             th:alt="'Foto de ' + ${m.nombre}" />
+
+                        <div th:if="${m.foto == null}" class="avatar-mascota avatar-placeholder">
+                            🐾
+                        </div>
+
+                        <a th:href="@{'/historial/' + ${m.id}}" class="link-nombre">
+                            <span th:text="${m.nombre}">Nombre</span>
+                        </a>
+                    </div>
+                </td>
+
+                <td th:text="${m.especie}">Especie</td>
+                <td th:text="${m.raza}">Raza</td>
+                <td th:text="${m.fechaNacimiento}">Fecha</td>
+                <td th:text="${m.peso}">Peso</td>
+                <td th:text="${m.notas}">Notas</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${#lists.isEmpty(mascotas)}">No tienes mascotas registradas.</p>
+    </div>
+</div>
+
+<script>
+    (function () {
+      function idSeleccionado() {
+        const r = document.querySelector('input[name="idSel"]:checked');
+        return r ? r.value : null;
+      }
+
+      const btnEditar = document.getElementById('btnConfirmarEditar');
+      if (btnEditar) {
+        btnEditar.addEventListener('click', function () {
+          const id = idSeleccionado();
+          if (!id) { alert('Selecciona una mascota.'); return; }
+          window.location.href = '/mascotas/editar/' + id;
+        });
+      }
+
+      const btnEliminar = document.getElementById('btnConfirmarEliminar');
+      if (btnEliminar) {
+        btnEliminar.addEventListener('click', function () {
+          const id = idSeleccionado();
+          if (!id) { alert('Selecciona una mascota.'); return; }
+          if (confirm('¿Seguro que deseas eliminar esta mascota?')) {
+            window.location.href = '/mascotas/eliminar/' + id;
+          }
+        });
+      }
+    })();
+</script>
+
+</body>
+</html>

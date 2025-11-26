@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión - PetCare</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="login-full">
+    <div class="login-left">
+        <div class="login-left-inner">
+            <img th:src="@{/img/MascotasLogin.png}" alt="Mascotas" class="circle-img">
+            <h2>¡Bienvenido a <span style="color:#1A7D7D;">PetCare</span>!</h2>
+            <p>
+                Cuida a tu mascota con recordatorios, historial médico<br>
+                y conexión veterinaria.
+            </p>
+            <p>Regístrate y mejora su bienestar hoy.</p>
+        </div>
+    </div>
+
+    <div class="login-right">
+        <div class="login-card">
+
+            <div class="login-ornamentos">
+                <div class="linea"></div>
+                <div class="avatar">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 12c2.761 0 5-2.686 5-6s-2.239-6-5-6-5 2.686-5 6 2.239 6 5 6zm0 2c-4.418 0-8 2.686-8 6v2h16v-2c0-3.314-3.582-6-8-6z"/>
+                    </svg>
+                </div>
+                <div class="linea"></div>
+            </div>
+
+            <h2>Iniciar sesión</h2>
+
+            <p th:if="${param.error}" class="alerta">Usuario o contraseña incorrectos.</p>
+
+            <form th:action="@{/login}" method="post">
+                <div class="grupo">
+                    <label for="usuario">Usuario</label>
+                    <input id="usuario" name="usuario" type="text" required>
+                </div>
+
+                <div class="grupo">
+                    <label for="contrasena">Contraseña</label>
+                    <input id="contrasena" name="contrasena" type="password" required>
+                </div>
+
+                <div class="acciones acciones-login">
+                    <button class="btn prim btn-lg" type="submit">Entrar</button>
+                    <a class="btn btn-lg" href="/registro">Crear cuenta</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

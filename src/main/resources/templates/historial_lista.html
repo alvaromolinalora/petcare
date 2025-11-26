@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial Médico - PetCare</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+    <a class="logo" href="/inicio">PetCare</a>
+    <div class="menu">
+        <a href="/inicio">Inicio</a>
+        <a href="/mascotas">Mi mascota</a>
+        <a href="/agenda">Agenda</a>
+        <a href="#">Servicios</a>
+        <a href="#">Comunidad</a>
+    </div>
+    <div class="user">
+        <span th:if="${session.usuarioNombre}">
+            👤 <b th:text="${session.usuarioNombre}">usuario</b>
+        </span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;<a href="/salir">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="card">
+
+        <div class="acciones-superior">
+            <div class="mascota-identidad">
+                <img th:if="${mascota.foto != null}"
+                     th:src="${mascota.foto}"
+                     class="avatar-mascota"
+                     th:alt="'Foto de ' + ${mascota.nombre}" />
+
+                <div th:if="${mascota.foto == null}" class="avatar-mascota avatar-placeholder">
+                    🐾
+                </div>
+
+                <h2 class="titulo" th:text="'Historial médico de ' + ${mascota.nombre}">
+                    Historial Médico
+                </h2>
+            </div>
+
+            <a class="btn prim"
+               th:href="@{'/historial/nuevo/' + ${mascota.id}}">
+                ➕ Añadir registro
+            </a>
+        </div>
+
+        <table class="tabla tabla-mascotas" style="margin-top: 10px;">
+
+            <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Veterinario</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="r : ${historial}">
+                <td th:text="${r.fecha}">2025-01-01</td>
+                <td th:text="${r.tipo}">Vacuna</td>
+                <td th:text="${r.descripcion}">Descripción</td>
+                <td th:text="${r.veterinario}">Dr. Pérez</td>
+
+                <td>
+                    <a class="btn"
+                       th:href="@{'/historial/editar/' + ${r.id}}">
+                        ✏️ Editar
+                    </a>
+
+                    <a class="btn"
+                       th:href="@{'/historial/eliminar/' + ${r.id}}"
+                       onclick="return confirm('¿Seguro que deseas eliminar este registro?');">
+                        🗑️ Eliminar
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+
+        <p th:if="${#lists.isEmpty(historial)}" style="margin-top:14px;">
+            No hay registros médicos para esta mascota.
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>PetCare - Inicio</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+    <a class="logo" href="/inicio">PetCare</a>
+    <div class="menu">
+        <a href="/inicio" class="menu-activo">Inicio</a>
+        <a href="/mascotas">Mi mascota</a>
+        <a href="/agenda">Agenda</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/comunidad">Comunidad</a>
+    </div>
+    <div class="user">
+        <span th:if="${session.usuarioNombre}">👤 <b th:text="${session.usuarioNombre}">usuario</b></span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;<a href="/salir">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+    <div class="card card-comunidad-page">
+
+        <div class="cabecera-servicios">
+            <div>
+                <h2 class="titulo">Bienvenido/a a PetCare</h2>
+            </div>
+            <div class="badge-servicios">
+                Resumen de tu espacio
+            </div>
+        </div>
+
+        <div class="inicio-layout">
+            <div class="inicio-col-text">
+                <p class="texto-intro-servicios">
+                    Tu espacio personal para gestionar toda la información de tus mascotas.
+                    Desde PetCare podrás acceder a su perfil, revisar su historial médico,
+                    controlar tus próximas citas con veterinarios y descubrir servicios útiles
+                    para su bienestar.
+                </p>
+            </div>
+
+            <div class="inicio-col-img">
+                <img th:src="@{/img/PerroInicio3.png}" alt="Imagen de bienvenida" class="img-bienvenida">
+            </div>
+        </div>
+
+        <div class="links-inicio">
+            <a class="btn prim" href="/mascotas/nueva">➕ Añadir mascota</a>
+            <a class="btn link" href="/agenda">📅 Ver agenda</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

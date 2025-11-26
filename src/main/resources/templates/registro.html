@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - PetCare</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="login-full">
+    <div class="login-left">
+        <div class="login-left-inner">
+
+            <img src="/img/mascotas1.jpg" alt="Mascotas" class="circle-img">
+            <h2>Únete a <span style="color:#1A7D7D;">PetCare</span></h2>
+            <p>
+                Crea tu cuenta para gestionar la salud y el bienestar de tu compañero.
+            </p>
+        </div>
+    </div>
+
+    <div class="login-right">
+        <div class="login-card">
+            <h2 class="titulo">Crear cuenta</h2>
+
+            <p th:if="${param.existe}" class="alerta">
+                El nombre de usuario ya existe. Prueba con otro.
+            </p>
+
+            <form th:action="@{/registro}" method="post">
+                <div class="grupo">
+                    <label for="usuario">Usuario (único)</label>
+                    <input id="usuario" name="usuario" type="text" maxlength="50" required>
+                </div>
+
+                <div class="grupo">
+                    <label for="nombreCompleto">Nombre completo (opcional)</label>
+                    <input id="nombreCompleto" name="nombreCompleto" type="text" maxlength="100">
+                </div>
+
+                <div class="grupo">
+                    <label for="contrasena">Contraseña</label>
+                    <input id="contrasena" name="contrasena" type="password" required>
+                </div>
+
+                <div class="acciones acciones-center">
+                    <button class="btn prim btn-sm" type="submit">Registrarme</button>
+                    <a class="btn btn-sm" href="/login">Iniciar sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

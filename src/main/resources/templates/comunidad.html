@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Comunidad - PetCare</title>
+  <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+  <a class="logo" href="/inicio">PetCare</a>
+  <div class="menu">
+    <a href="/inicio">Inicio</a>
+    <a href="/mascotas">Mi mascota</a>
+    <a href="/agenda">Agenda</a>
+    <a href="/servicios">Servicios</a>
+    <a href="/comunidad" class="menu-activo">Comunidad</a>
+  </div>
+  <div class="user">
+    <span th:if="${session.usuarioNombre}">👤 <b th:text="${session.usuarioNombre}">usuario</b></span>
+    &nbsp;&nbsp;|&nbsp;&nbsp;<a href="/salir">Salir</a>
+  </div>
+</div>
+
+<div class="contenedor">
+  <div class="card card-comunidad-page">
+
+    <div class="cabecera-comunidad">
+      <div>
+        <h2 class="titulo">Comunidad PetCare</h2>
+        <p class="texto-intro-comunidad">
+          En la comunidad <strong>PetCare</strong> reunimos consejos, buenas prácticas y
+          recursos útiles para ayudarte en el día a día con tu mascota. El objetivo es
+          acompañarte en su cuidado, prevención y bienestar general.
+        </p>
+      </div>
+      <div class="badge-comunidad">
+        Información y buenas prácticas
+      </div>
+    </div>
+
+    <section class="bloque-comunidad bloque-consejos">
+      <div class="bloque-header">
+        <h3 class="subtitulo-comunidad">
+          <span class="emoji-bloque">✨</span>
+          Consejos rápidos
+        </h3>
+        <p class="texto-seccion-comunidad">
+          Pequeños recordatorios que marcan la diferencia en la salud y felicidad de tu compañero.
+        </p>
+      </div>
+
+      <div class="grid-consejos">
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">🍽️</span> Alimentación equilibrada</h4>
+          <p>
+            Respeta las raciones recomendadas, evita los alimentos contraindicados y
+            consulta con tu veterinario antes de hacer cambios bruscos en la dieta.
+          </p>
+        </article>
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">🏃</span> Ejercicio diario</h4>
+          <p>
+            Adapta la intensidad y duración del ejercicio a la edad, tamaño y estado físico
+            de tu mascota. El movimiento regular mejora su salud física y mental.
+          </p>
+        </article>
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">🧴</span> Higiene y cuidados</h4>
+          <p>
+            Cepillados frecuentes, revisión de uñas, oídos y piel ayudan a detectar
+            problemas dermatológicos o molestias.
+          </p>
+        </article>
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">🧠</span> Estimulación mental</h4>
+          <p>
+            Juegos de olfato, juguetes interactivos y aprendizaje de trucos sencillos
+            previenen el aburrimiento y reducen el estrés.
+          </p>
+        </article>
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">👨‍⚕️</span> Revisiones periódicas</h4>
+          <p>
+            Mantén al día vacunas, desparasitaciones y revisiones. La prevención
+            permite detectar problemas antes de que se agraven.
+          </p>
+        </article>
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">❤️</span> Rutina y cariño</h4>
+          <p>
+            Una rutina estable, un entorno seguro y tiempo de calidad contigo son
+            la base del bienestar emocional de tu mascota.
+          </p>
+        </article>
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">🐶</span> Socialización positiva</h4>
+          <p>
+            La exposición gradual a otros perros, personas y entornos ayuda a tu mascota
+            a desarrollar seguridad, reducir miedos y mejorar su comportamiento.
+          </p>
+        </article>
+
+        <article class="card-consejo">
+          <h4><span class="icono-consejo">💤</span> Descanso adecuado</h4>
+          <p>
+            Asegura un espacio tranquilo y cómodo para dormir. El descanso suficiente
+            es clave para su salud física, emocional y su correcto desarrollo.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="bloque-comunidad bloque-articulos">
+      <div class="bloque-header">
+        <h3 class="subtitulo-comunidad">
+          <span class="emoji-bloque">📚</span>
+          Artículos destacados
+        </h3>
+        <p class="texto-seccion-comunidad">
+          Lecturas breves para profundizar en temas clave del cuidado responsable.
+        </p>
+      </div>
+
+      <div class="grid-articulos">
+
+        <article class="card-articulo">
+          <h4>Cómo identificar signos de estrés en tu mascota</h4>
+          <p>
+            Cambios en el apetito, alteraciones en el sueño, lamidos excesivos o conductas repetitivas
+            pueden indicar estrés o malestar. Observar su rutina diaria es clave para detectarlo.
+          </p>
+          <p class="nota-articulo">
+            Si los signos se mantienen, consulta con un profesional para valorar posibles causas médicas.
+          </p>
+        </article>
+
+        <article class="card-articulo">
+          <h4>Enriquecimiento ambiental en casa</h4>
+          <p>
+            Rascadores, escondites y zonas elevadas crean un ambiente más interesante y seguro,
+            especialmente para mascotas que pasan muchas horas en interiores.
+          </p>
+          <p class="nota-articulo">
+            Ideas: alfombras olfativas, juguetes interactivos y rotación de juguetes.
+          </p>
+        </article>
+
+        <article class="card-articulo">
+          <h4>Botiquín básico para emergencias leves</h4>
+          <p>
+            Gasas, suero, vendas y termómetro te ayudarán a actuar mientras acudes al veterinario.
+          </p>
+          <p class="nota-articulo">
+            Importante: nunca uses medicación humana sin indicación veterinaria.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="bloque-comunidad bloque-recursos">
+      <div class="bloque-header">
+        <h3 class="subtitulo-comunidad">
+          <span class="emoji-bloque">🧩</span>
+          Recursos útiles
+        </h3>
+        <p class="texto-seccion-comunidad">
+          Herramientas y recordatorios para organizar mejor los cuidados de tu mascota.
+        </p>
+      </div>
+
+      <ul class="lista-recursos">
+        <li>
+          <span class="icono-recurso">📄</span>
+          <div>
+            <strong>Agenda de cuidados:</strong>
+            Registrar vacunas, desparasitaciones y visitas al veterinario facilita el seguimiento.
+          </div>
+        </li>
+
+        <li>
+          <span class="icono-recurso">📚</span>
+          <div>
+            <strong>Guías y manuales fiables:</strong>
+            Consulta fuentes especializadas según especie y raza de tu mascota.
+          </div>
+        </li>
+
+        <li>
+          <span class="icono-recurso">🕒</span>
+          <div>
+            <strong>Rutina diaria:</strong>
+            Establecer horarios estables reduce el estrés y mejora la convivencia.
+          </div>
+        </li>
+
+        <li>
+          <span class="icono-recurso">☎️</span>
+          <div>
+            <strong>Números importantes:</strong>
+            Ten a mano veterinarios, urgencias 24h y protectoras.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <div class="nota-comunidad">
+      <p>
+        <strong>Nota:</strong> La información de esta página es orientativa y no sustituye
+        el diagnóstico de un profesional veterinario.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

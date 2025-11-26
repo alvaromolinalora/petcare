@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nueva Mascota - PetCare</title>
+  <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<div class="nav">
+  <a class="logo" href="/inicio">PetCare</a>
+  <div class="menu">
+    <a href="/inicio">Inicio</a>
+    <a href="/mascotas">Mi mascota</a>
+    <a href="/agenda">Agenda</a>
+    <a href="#">Servicios</a>
+    <a href="#">Comunidad</a>
+  </div>
+  <div class="user">
+    <span th:if="${session.usuarioNombre}">👤 <b th:text="${session.usuarioNombre}">usuario</b></span>
+    &nbsp;&nbsp;|&nbsp;&nbsp;<a href="/salir">Salir</a>
+  </div>
+</div>
+
+<div class="contenedor">
+  <div class="card">
+    <h2 class="titulo">Registrar nueva mascota</h2>
+
+    <form th:action="@{/mascotas/guardar}"
+          th:object="${mascota}"
+          method="post"
+          enctype="multipart/form-data">
+
+      <div class="grupo">
+        <label>Nombre</label>
+        <input type="text" th:field="*{nombre}" required>
+      </div>
+
+      <div class="grupo">
+        <label>Especie</label>
+        <input type="text" th:field="*{especie}">
+      </div>
+
+      <div class="grupo">
+        <label>Raza</label>
+        <input type="text" th:field="*{raza}">
+      </div>
+
+      <div class="grupo">
+        <label>Fecha de nacimiento</label>
+        <input type="date" th:field="*{fechaNacimiento}">
+      </div>
+
+      <div class="grupo">
+        <label>Peso (kg)</label>
+        <input type="number" step="0.01" th:field="*{peso}">
+      </div>
+
+      <div class="grupo">
+        <label>Foto de la mascota</label>
+        <input type="file" name="fotoArchivo" accept="image/*">
+      </div>
+
+      <div class="grupo">
+        <label>Notas</label>
+        <textarea rows="3" th:field="*{notas}"></textarea>
+      </div>
+
+      <button class="btn prim" type="submit">Guardar</button>
+      <a class="btn link" href="/mascotas">Cancelar</a>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
