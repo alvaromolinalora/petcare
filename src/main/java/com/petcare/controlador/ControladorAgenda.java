@@ -39,7 +39,7 @@ public class ControladorAgenda {
         Usuario usuario = servicioUsuarios.buscarPorId(usuarioId);
 
         List<HistorialMedico> citas = servicioHistorial.listarProximasCitas(usuario);
-        // >>> CLAVE para Render: nunca iterar sobre null
+
         if (citas == null) {
             citas = new ArrayList<>();
         }

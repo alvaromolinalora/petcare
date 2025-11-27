@@ -40,7 +40,6 @@ public class ControladorMascotas {
         Usuario usuario = servicioUsuarios.buscarPorId(usuarioId);
         List<Mascota> lista = servicioMascotas.listarPorUsuario(usuario);
 
-        // *** CLAVE: nunca mandar null a la vista ***
         if (lista == null) {
             lista = new ArrayList<>();
         }
