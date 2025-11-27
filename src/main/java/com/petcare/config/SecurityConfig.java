@@ -43,7 +43,6 @@ public class SecurityConfig {
                                 "/",
                                 "/login",
                                 "/registro",
-                                // Recursos estáticos
                                 "/estilos.css",
                                 "/css/**",
                                 "/js/**",
