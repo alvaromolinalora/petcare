@@ -60,7 +60,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .usernameParameter("usuario")
                         .passwordParameter("contrasena")
-                        // AQUÍ rellenamos la sesión como antes
+
                         .successHandler((request, response, authentication) -> {
                             String username = authentication.getName();
                             Usuario u = servicioUsuarios.buscarPorNombreUsuario(username);
